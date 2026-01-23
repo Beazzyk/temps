@@ -3,7 +3,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import ZakonHistoria from './pages/ZakonHistoria';
-import ZakonStatut from './pages/ZakonStatut';
 import Odeszli from './pages/Odeszli';
 import WielkiPrzeorat from './pages/WielkiPrzeorat';
 import WielkiPrzeoratStatut from './pages/WielkiPrzeoratStatut';
@@ -24,7 +23,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/zakon/historia" element={<ZakonHistoria />} />
-            <Route path="/zakon/statut" element={<ZakonStatut />} />
             <Route path="/zakon/odeszli" element={<Odeszli />} />
             <Route path="/wielki-przeorat" element={<WielkiPrzeorat />} />
             <Route path="/wielki-przeorat/statut-generalny" element={<WielkiPrzeoratStatut />} />

@@ -6,11 +6,9 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isZakonOpen, setIsZakonOpen] = useState(false);
-  const [isOddzialyOpen, setIsOddzialyOpen] = useState(false);
   const [isPrzeoratOpen, setIsPrzeoratOpen] = useState(false);
   const location = useLocation();
   const zakonRef = useRef<HTMLDivElement>(null);
-  const oddzialyRef = useRef<HTMLDivElement>(null);
   const przeoratRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns when clicking outside
@@ -18,9 +16,6 @@ const Navbar = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (zakonRef.current && !zakonRef.current.contains(event.target as Node)) {
         setIsZakonOpen(false);
-      }
-      if (oddzialyRef.current && !oddzialyRef.current.contains(event.target as Node)) {
-        setIsOddzialyOpen(false);
       }
       if (przeoratRef.current && !przeoratRef.current.contains(event.target as Node)) {
         setIsPrzeoratOpen(false);
@@ -89,13 +84,6 @@ const Navbar = () => {
 
               {isZakonOpen && (
                 <div className="absolute top-full left-0 mt-2 w-48 bg-black/95 border border-templar-red/30 rounded shadow-lg py-2 z-50">
-                  <Link
-                    to="/zakon/statut"
-                    onClick={() => setIsZakonOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Statut
-                  </Link>
                   <Link
                     to="/zakon/historia"
                     onClick={() => setIsZakonOpen(false)}
@@ -175,71 +163,6 @@ const Navbar = () => {
             >
               Projekty
             </Link>
-
-            {/* DROPDOWN — ODDZIAŁY */}
-            <div className="relative" ref={oddzialyRef}>
-              <button
-                onClick={() => setIsOddzialyOpen(!isOddzialyOpen)}
-                className="text-white hover:text-templar-red-light transition-colors flex items-center space-x-1 text-base"
-              >
-                <span>Oddziały</span>
-                <ChevronDown className={`w-4 h-4 transition-transform ${isOddzialyOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {isOddzialyOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-black/95 border border-templar-red/30 rounded shadow-lg py-2 z-50">
-                  <Link
-                    to="/oddzialy/mazowieckie"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Oddział mazowiecki
-                  </Link>
-                  <Link
-                    to="/oddzialy/malopolskie"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Oddział małopolski
-                  </Link>
-                  <Link
-                    to="/oddzialy/pomorskie"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Oddział pomorski
-                  </Link>
-                  <Link
-                    to="/oddzialy/slaskie"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Oddział śląski
-                  </Link>
-                  <Link
-                    to="/oddzialy/wielkopolskie"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Oddział wielkopolski
-                  </Link>
-                  <Link
-                    to="/oddzialy/dolnoslaskie"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Oddział dolnośląski
-                  </Link>
-                  <Link
-                    to="/oddzialy"
-                    onClick={() => setIsOddzialyOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors border-t border-templar-red/30 mt-1 pt-2"
-                  >
-                    Wszystkie oddziały
-                  </Link>
-                </div>
-              )}
-            </div>
 
             <Link
               to="/modlitwy"
@@ -322,9 +245,6 @@ const Navbar = () => {
             </Link>
             <Link to="/projekty" className="block text-white" onClick={() => setIsMenuOpen(false)}>
               Projekty
-            </Link>
-            <Link to="/oddzialy" className="block text-white" onClick={() => setIsMenuOpen(false)}>
-              Oddziały
             </Link>
             <Link to="/aktualnosci" className="block text-white" onClick={() => setIsMenuOpen(false)}>
               Aktualności
