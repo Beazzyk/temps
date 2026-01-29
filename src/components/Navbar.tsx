@@ -7,9 +7,11 @@ const Navbar = () => {
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isZakonOpen, setIsZakonOpen] = useState(false);
   const [isPrzeoratOpen, setIsPrzeoratOpen] = useState(false);
+  const [isProjektyOpen, setIsProjektyOpen] = useState(false);
   const location = useLocation();
   const zakonRef = useRef<HTMLDivElement>(null);
   const przeoratRef = useRef<HTMLDivElement>(null);
+  const projektyRef = useRef<HTMLDivElement>(null);
 
   // Close dropdowns when clicking outside
   useEffect(() => {
@@ -19,6 +21,9 @@ const Navbar = () => {
       }
       if (przeoratRef.current && !przeoratRef.current.contains(event.target as Node)) {
         setIsPrzeoratOpen(false);
+      }
+      if (projektyRef.current && !projektyRef.current.contains(event.target as Node)) {
+        setIsProjektyOpen(false);
       }
     };
 
@@ -31,6 +36,7 @@ const Navbar = () => {
   const languages = ['PL', 'EN', 'DE', 'ES', 'IT'];
   const isActive = (path: string) => location.pathname === path;
   const isPrzeoratActive = () => location.pathname.startsWith('/wielki-przeorat');
+  const isProjektyActive = () => location.pathname.startsWith('/projekty');
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 gradient-templar border-b border-templar-red/30">
@@ -98,6 +104,13 @@ const Navbar = () => {
                   >
                     „Odeszli do Domu Ojca"
                   </Link>
+                  <Link
+                    to="/zakon/zostan-templariuszem"
+                    onClick={() => setIsZakonOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Zostań Templariuszem
+                  </Link>
                 </div>
               )}
             </div>
@@ -107,7 +120,7 @@ const Navbar = () => {
               <button
                 onClick={() => setIsPrzeoratOpen(!isPrzeoratOpen)}
                 className={`text-white hover:text-templar-red-light transition-colors flex items-center space-x-1 text-base ${
-                  isActive('/wielki-przeorat') ? 'text-templar-red-light' : ''
+                  isPrzeoratActive() ? 'text-templar-red-light' : ''
                 }`}
               >
                 <span>Wielki Przeorat Polski</span>
@@ -116,13 +129,6 @@ const Navbar = () => {
 
               {isPrzeoratOpen && (
                 <div className="absolute top-full left-0 mt-2 w-56 bg-black/95 border border-templar-red/30 rounded shadow-lg py-2 z-50">
-                  <Link
-                    to="/wielki-przeorat"
-                    onClick={() => setIsPrzeoratOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    O Przeoracie
-                  </Link>
                   <Link
                     to="/wielki-przeorat/statut-generalny"
                     onClick={() => setIsPrzeoratOpen(false)}
@@ -138,13 +144,6 @@ const Navbar = () => {
                     Umocowanie
                   </Link>
                   <Link
-                    to="/wielki-przeorat/pozostale-dokumenty"
-                    onClick={() => setIsPrzeoratOpen(false)}
-                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
-                  >
-                    Pozostałe Dokumenty
-                  </Link>
-                  <Link
                     to="/wielki-przeorat/struktura"
                     onClick={() => setIsPrzeoratOpen(false)}
                     className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
@@ -155,32 +154,86 @@ const Navbar = () => {
               )}
             </div>
 
-            <Link
-              to="/projekty"
-              className={`text-white hover:text-templar-red-light transition-colors text-base ${
-                isActive('/projekty') ? 'text-templar-red-light border-b-2 border-templar-red-light pb-1' : ''
-              }`}
-            >
-              Projekty
-            </Link>
+            {/* DROPDOWN — PROJEKTY */}
+            <div className="relative" ref={projektyRef}>
+              <button
+                onClick={() => setIsProjektyOpen(!isProjektyOpen)}
+                className={`text-white hover:text-templar-red-light transition-colors flex items-center space-x-1 text-base ${
+                  isProjektyActive() ? 'text-templar-red-light' : ''
+                }`}
+              >
+                <span>Projekty</span>
+                <ChevronDown className={`w-4 h-4 transition-transform ${isProjektyOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-            <Link
-              to="/modlitwy"
-              className={`text-white hover:text-templar-red-light transition-colors text-base ${
-                isActive('/modlitwy') ? 'text-templar-red-light border-b-2 border-templar-red-light pb-1' : ''
-              }`}
-            >
-              Modlitwy
-            </Link>
-
-            <Link
-              to="/sklep"
-              className={`text-white hover:text-templar-red-light transition-colors text-base ${
-                isActive('/sklep') ? 'text-templar-red-light border-b-2 border-templar-red-light pb-1' : ''
-              }`}
-            >
-              Sklep <span className="text-xs">(wkrótce)</span>
-            </Link>
+              {isProjektyOpen && (
+                <div className="absolute top-full left-0 mt-2 w-72 bg-black/95 border border-templar-red/30 rounded shadow-lg py-2 z-50 max-h-[80vh] overflow-y-auto">
+                  <Link
+                    to="/projekty/serce-dla-syrii"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Serce dla Syrii
+                  </Link>
+                  <Link
+                    to="/projekty/kosciol-sw-heleny-w-turcji"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Kościół Św. Heleny w Turcji
+                  </Link>
+                  <Link
+                    to="/projekty/pomoc-dla-libanu"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Pomoc dla Libanu
+                  </Link>
+                  <Link
+                    to="/projekty/roza-zywego-rozanca"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Róża Żywego Różańca
+                  </Link>
+                  <Link
+                    to="/projekty/matka-boska-strzegomska"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Matka Boska Strzegomska zwana „Fundatorką"
+                  </Link>
+                  <Link
+                    to="/projekty/ksiazka-dla-wieznia"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Książka dla Więźnia
+                  </Link>
+                  <Link
+                    to="/projekty/benefactor-templi"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Benefactor Templi
+                  </Link>
+                  <Link
+                    to="/projekty/familiare-templi"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Familiare Templi
+                  </Link>
+                  <Link
+                    to="/projekty/dobrodziej-roku-dobry-rycerz"
+                    onClick={() => setIsProjektyOpen(false)}
+                    className="block px-4 py-2 text-white hover:bg-templar-red/20 transition-colors"
+                  >
+                    Dobrodziej Roku - Dobry Rycerz
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* RIGHT — LANGUAGE + CONTACT + MOBILE BUTTON */}
@@ -240,7 +293,7 @@ const Navbar = () => {
             <Link to="/zakon/historia" className="block text-white" onClick={() => setIsMenuOpen(false)}>
               Zakon Templariuszy
             </Link>
-            <Link to="/wielki-przeorat" className="block text-white" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/wielki-przeorat/statut-generalny" className="block text-white" onClick={() => setIsMenuOpen(false)}>
               Wielki Przeorat Polski
             </Link>
             <Link to="/projekty" className="block text-white" onClick={() => setIsMenuOpen(false)}>

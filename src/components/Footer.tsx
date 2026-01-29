@@ -67,7 +67,7 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/wielki-przeorat" className="text-gray-400 hover:text-white transition-colors">
+                <Link to="/wielki-przeorat/statut-generalny" className="text-gray-400 hover:text-white transition-colors">
                   Wielki Przeorat
                 </Link>
               </li>
